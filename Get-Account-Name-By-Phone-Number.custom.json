@@ -1,0 +1,63 @@
+{
+  "name": "Get Account Name By Phone Number",
+  "integrationType": "salesforce-datadip",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/services/data/v54.0/search/?q=$esc.url(\"FIND {$salesforce.escReserved(${input.PHONE_NUMBER})} IN PHONE FIELDS RETURNING Account(Name)\")",
+      "requestType": "GET",
+      "headers": {
+        "UserAgent": "PureCloudIntegrations/1.0"
+      },
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {
+        "account": "$.searchRecords"
+      },
+      "translationMapDefaults": {},
+      "successTemplate": "${account}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Phone Number Request",
+        "description": "A phone number-based request.",
+        "type": "object",
+        "required": [
+          "PHONE_NUMBER"
+        ],
+        "properties": {
+          "PHONE_NUMBER": {
+            "description": "The phone number used for the query.",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "array",
+        "properties": {},
+        "items": {
+          "title": "Account",
+          "description": "A Salesforce account.",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "properties": {
+            "Name": {
+              "description": "The name of the account.",
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "secure": false
+}
