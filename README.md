@@ -6,7 +6,7 @@ Shown below is an example of how to configure the remote module.
 
 ```hcl
 module "data_action" {
-    source             = "git::https://github.com/GenesysCloudDevOps/salesforce-get-account-name-by-phone-number.custom-data-action-module.git?ref=v1.0.0"
+    source             = "git::https://github.com/GenesysCloudDevOps/salesforce-get-account-name-by-phone-number-data-action-module.git?ref=v1.0.0"
     action_name        = "Get Account Name By Phone Number"
     action_category    = "${module.integration.integration_name}"
     integration_id     = "${module.integration.integration_id}"
